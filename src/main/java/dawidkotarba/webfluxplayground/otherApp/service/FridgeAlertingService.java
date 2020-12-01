@@ -8,7 +8,7 @@ import org.springframework.web.reactive.function.client.WebClient;
 import javax.annotation.PostConstruct;
 
 @Service
-public class FridgeAlertService {
+public class FridgeAlertingService {
     final WebClient webClient = WebClient.create("http://localhost:8080");
 
     @PostConstruct

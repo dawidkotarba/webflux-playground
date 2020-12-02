@@ -1,5 +1,6 @@
 package dawidkotarba.webfluxplayground.service;
 
+import dawidkotarba.webfluxplayground.model.FridgeWarranty;
 import dawidkotarba.webfluxplayground.repository.FridgeWarrantyBlockingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,7 +20,7 @@ public class FridgeWarrantyService {
         this.repository = repository;
     }
 
-    public Mono<Integer> getRemainingWarrantyDays(final int fridgeId) {
+    public Mono<FridgeWarranty> getRemainingWarrantyDays(final int fridgeId) {
         return Mono.just(repository.getRemainingWarrantyDays(fridgeId)).subscribeOn(repositoryScheduler);
     }
 }

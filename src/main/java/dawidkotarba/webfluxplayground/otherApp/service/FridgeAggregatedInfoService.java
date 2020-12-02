@@ -1,7 +1,7 @@
 package dawidkotarba.webfluxplayground.otherApp.service;
 
-import dawidkotarba.webfluxplayground.otherApp.model.FridgeTemp;
-import dawidkotarba.webfluxplayground.otherApp.model.FridgeWeight;
+import dawidkotarba.webfluxplayground.otherApp.model.FridgeFoodWeightDto;
+import dawidkotarba.webfluxplayground.otherApp.model.FridgeTemperatureDto;
 import lombok.SneakyThrows;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
@@ -24,16 +24,16 @@ public class FridgeAggregatedInfoService {
 
     // will wait for two endpoints to respond and combine the result
     public void getAggregatedInfoForFridge(final int fridgeId) {
-        final Flux<FridgeWeight> weightFlux = webClient.get()
+        final Flux<FridgeFoodWeightDto> weightFlux = webClient.get()
                 .uri("/weight/" + fridgeId)
                 .retrieve()
-                .bodyToFlux(FridgeWeight.class)
+                .bodyToFlux(FridgeFoodWeightDto.class)
                 .retry();
 
         webClient.get()
                 .uri("/temp/" + fridgeId)
                 .retrieve()
-                .bodyToFlux(FridgeTemp.class)
+                .bodyToFlux(FridgeTemperatureDto.class)
                 .retry()
                 .zipWith(weightFlux)
                 .subscribe(info -> System.out.println(String.format("INFO: %s, %s", info.getT1(), info.getT2())));

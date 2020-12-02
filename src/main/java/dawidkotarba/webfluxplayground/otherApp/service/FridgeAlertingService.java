@@ -1,6 +1,6 @@
 package dawidkotarba.webfluxplayground.otherApp.service;
 
-import dawidkotarba.webfluxplayground.otherApp.model.FridgeTemp;
+import dawidkotarba.webfluxplayground.otherApp.model.FridgeTemperatureDto;
 import lombok.SneakyThrows;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
@@ -21,11 +21,11 @@ public class FridgeAlertingService {
         webClient.get()
                 .uri("/temp")
                 .retrieve()
-                .bodyToFlux(FridgeTemp.class)
+                .bodyToFlux(FridgeTemperatureDto.class)
                 .retry()
-                .subscribe(fridgeTemp -> {
-                    if (fridgeTemp.isHigh()) {
-                        System.out.printf("ALERT!!! High temperature for %d: %s%n", fridgeTemp.getId(), fridgeTemp.getFormattedTemperature());
+                .subscribe(fridgeTemperatureDto -> {
+                    if (fridgeTemperatureDto.isHigh()) {
+                        System.out.printf("ALERT!!! High temperature for %d: %s%n", fridgeTemperatureDto.getId(), fridgeTemperatureDto.getFormattedTemperature());
                     }
                 });
     }

@@ -22,9 +22,9 @@ public class FridgeWarrantyBlockingRepository {
     }
 
     @SneakyThrows
-    public int getRemainingWarrantyDays(final int fridgeId) {
+    public FridgeWarranty getRemainingWarrantyDays(final int fridgeId) {
         // simulate a blocking resource
         Thread.sleep(new Random().nextInt(4000));
-        return warranties.get(fridgeId).getRemainingWarrantyDays();
+        return warranties.get(fridgeId);
     }
 }

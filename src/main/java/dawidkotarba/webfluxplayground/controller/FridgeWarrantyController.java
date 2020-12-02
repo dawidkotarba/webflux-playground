@@ -1,5 +1,6 @@
 package dawidkotarba.webfluxplayground.controller;
 
+import dawidkotarba.webfluxplayground.model.FridgeWarranty;
 import dawidkotarba.webfluxplayground.service.FridgeWarrantyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,7 +21,7 @@ public class FridgeWarrantyController {
 
     // http://localhost:8080/warranty/1
     @GetMapping(path = "/warranty/{fridgeId}", produces = APPLICATION_JSON_VALUE)
-    public Mono<Integer> getWarrantyDays(@PathVariable final int fridgeId) {
+    public Mono<FridgeWarranty> getWarrantyDays(@PathVariable final int fridgeId) {
         return warrantyService.getRemainingWarrantyDays(fridgeId);
     }
 }

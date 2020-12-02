@@ -3,7 +3,8 @@ package dawidkotarba.webfluxplayground.otherApp.model;
 import lombok.Data;
 
 @Data
-public class FridgeWeight {
+public class FridgeTemperatureDto {
     private int id;
-    private String formattedWeight;
+    private String formattedTemperature;
+    private boolean isHigh;
 }

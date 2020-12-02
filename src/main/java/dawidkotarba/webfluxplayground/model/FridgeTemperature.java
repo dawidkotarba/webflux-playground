@@ -10,14 +10,15 @@ import java.util.concurrent.ThreadLocalRandom;
 @Getter
 public class FridgeTemperature {
     private final int id;
+    private final double temperature;
     private final String formattedTemperature;
     private final boolean isHigh;
 
     public FridgeTemperature() {
         id = new Random().nextInt(5);
-        final double temp = retrieveTemperature();
-        formattedTemperature = formatTemperature(temp);
-        isHigh = isTooHigh(temp);
+        temperature = retrieveTemperature();
+        formattedTemperature = formatTemperature(temperature);
+        isHigh = isTooHigh(temperature);
     }
 
     private double retrieveTemperature() {
@@ -25,7 +26,7 @@ public class FridgeTemperature {
     }
 
     private String formatTemperature(final double temp) {
-        return String.format("%.2fC", temp);
+        return String.format("%.2f°C", temp);
     }
 
     private boolean isTooHigh(final double temp) {

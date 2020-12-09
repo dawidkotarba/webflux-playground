@@ -2,6 +2,7 @@ package dawidkotarba.webfluxplayground.controller;
 
 import dawidkotarba.webfluxplayground.model.FridgeTemperature;
 import dawidkotarba.webfluxplayground.service.FridgeTemperatureService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,6 +16,7 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 import static org.springframework.http.MediaType.TEXT_EVENT_STREAM_VALUE;
 
 @RestController
+@Slf4j
 public class FridgeTemperatureController {
 
     private final FridgeTemperatureService temperatureService;
@@ -58,9 +60,10 @@ public class FridgeTemperatureController {
     @GetMapping(path = "/temp-avg/{entries}", produces = APPLICATION_JSON_VALUE)
     public Mono<String> averageTemperature(@PathVariable final int entries) {
         return temperatureService.getTemperaturePublisher()
-                .doOnNext(fridgeTemperature -> System.out.println("Taking into avg: " + fridgeTemperature.getFormattedTemperature()))
+                .doOnNext(fridgeTemperature -> log.info("Taking into avg: {}", fridgeTemperature.getFormattedTemperature()))
                 .take(entries)
                 .collect(Collectors.averagingDouble(FridgeTemperature::getTemperature))
-                .map(avg -> String.format("%.2f°C", avg));
+                .map(avg -> String.format("%.2f°C", avg))
+                .doOnSuccess(avg -> log.info("Average temperature: {}", avg));
     }
 }

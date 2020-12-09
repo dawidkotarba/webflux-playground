@@ -1,8 +1,9 @@
-package dawidkotarba.webfluxplayground.otherApp.service;
+package dawidkotarba.webfluxplayground.consumerApp.service;
 
-import dawidkotarba.webfluxplayground.otherApp.model.FridgeFoodWeightDto;
-import dawidkotarba.webfluxplayground.otherApp.model.FridgeTemperatureDto;
+import dawidkotarba.webfluxplayground.consumerApp.model.FridgeFoodWeightDto;
+import dawidkotarba.webfluxplayground.consumerApp.model.FridgeTemperatureDto;
 import lombok.SneakyThrows;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Flux;
@@ -10,6 +11,7 @@ import reactor.core.publisher.Flux;
 import javax.annotation.PostConstruct;
 
 @Service
+@Slf4j
 public class FridgeAggregatedInfoService {
     final WebClient webClient = WebClient.create("http://localhost:8080");
 
@@ -36,6 +38,6 @@ public class FridgeAggregatedInfoService {
                 .bodyToFlux(FridgeTemperatureDto.class)
                 .retry()
                 .zipWith(weightFlux)
-                .subscribe(info -> System.out.println(String.format("INFO: %s, %s", info.getT1(), info.getT2())));
+                .subscribe(info -> log.info("Info Service: {}, {}", info.getT1(), info.getT2()));
     }
 }

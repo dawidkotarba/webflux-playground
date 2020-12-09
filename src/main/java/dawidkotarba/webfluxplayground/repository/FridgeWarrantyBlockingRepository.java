@@ -8,6 +8,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 
+/**
+ * This is an example of a blocking service.
+ */
 @Repository
 public class FridgeWarrantyBlockingRepository {
     private final Map<Integer, FridgeWarranty> warranties;

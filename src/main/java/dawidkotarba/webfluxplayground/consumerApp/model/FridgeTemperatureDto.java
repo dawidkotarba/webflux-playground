@@ -1,4 +1,4 @@
-package dawidkotarba.webfluxplayground.otherApp.model;
+package dawidkotarba.webfluxplayground.consumerApp.model;
 
 import lombok.Data;
 

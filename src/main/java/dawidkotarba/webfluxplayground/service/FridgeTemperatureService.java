@@ -14,7 +14,7 @@ public class FridgeTemperatureService {
     private final Flux<FridgeTemperature> historicalPublisher = temperaturePublisher.cache(10000);
 
     private Flux<FridgeTemperature> streamTemperature() {
-        return Flux.<FridgeTemperature>generate(fluxSink -> fluxSink.next(new FridgeTemperature()))
-                .delayElements(Duration.ofMillis(500));
+        return Flux.interval(Duration.ofSeconds(1))
+                .map(tick -> new FridgeTemperature());
     }
 }

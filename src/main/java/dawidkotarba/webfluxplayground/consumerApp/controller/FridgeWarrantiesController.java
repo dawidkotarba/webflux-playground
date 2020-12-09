@@ -1,7 +1,7 @@
-package dawidkotarba.webfluxplayground.otherApp.controller;
+package dawidkotarba.webfluxplayground.consumerApp.controller;
 
-import dawidkotarba.webfluxplayground.otherApp.model.FridgeWarrantyDto;
-import dawidkotarba.webfluxplayground.otherApp.service.FridgeAggregatedWarrantyService;
+import dawidkotarba.webfluxplayground.consumerApp.model.FridgeWarrantyDto;
+import dawidkotarba.webfluxplayground.consumerApp.service.FridgeAggregatedWarrantyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;

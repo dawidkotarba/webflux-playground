@@ -1,6 +1,6 @@
-package dawidkotarba.webfluxplayground.otherApp.service;
+package dawidkotarba.webfluxplayground.consumerApp.service;
 
-import dawidkotarba.webfluxplayground.otherApp.model.FridgeWarrantyDto;
+import dawidkotarba.webfluxplayground.consumerApp.model.FridgeWarrantyDto;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Flux;

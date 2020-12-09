@@ -14,7 +14,7 @@ public class FridgeFoodWeightService {
     private final Flux<FridgeFoodWeight> historicalPublisher = weightPublisher.cache(10000);
 
     private Flux<FridgeFoodWeight> streamWeight() {
-        return Flux.<FridgeFoodWeight>generate(fluxSink -> fluxSink.next(new FridgeFoodWeight()))
-                .delayElements(Duration.ofSeconds(1));
+        return Flux.interval(Duration.ofSeconds(2))
+                .map(tick -> new FridgeFoodWeight());
     }
 }

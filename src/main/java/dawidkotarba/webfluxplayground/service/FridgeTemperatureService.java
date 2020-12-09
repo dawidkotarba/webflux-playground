@@ -15,6 +15,6 @@ public class FridgeTemperatureService {
 
     private Flux<FridgeTemperature> streamTemperature() {
         return Flux.<FridgeTemperature>generate(fluxSink -> fluxSink.next(new FridgeTemperature()))
-                .delayElements(Duration.ofSeconds(1));
+                .delayElements(Duration.ofMillis(500));
     }
 }

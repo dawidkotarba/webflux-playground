@@ -30,16 +30,28 @@ public class FridgeTemperatureController {
         return temperatureService.getTemperaturePublisher();
     }
 
+    // http://localhost:8080/temp/1
+    @GetMapping(path = "/temp/{fridgeId}", produces = TEXT_EVENT_STREAM_VALUE)
+    public Flux<FridgeTemperature> streamFridgeTemperature(@PathVariable final int fridgeId) {
+        return temperatureService.getTemperaturePublisher().filter(fridgeTemperature -> fridgeTemperature.getId() == fridgeId);
+    }
+
+    // http://localhost:8080/temp-limitRequest/5
+    @GetMapping(path = "/temp-limitRequest/{requestsNumber}", produces = TEXT_EVENT_STREAM_VALUE)
+    public Flux<FridgeTemperature> streamFridgeTemperatureLimitRequests(@PathVariable final int requestsNumber) {
+        return temperatureService.getTemperaturePublisher().limitRequest(requestsNumber);
+    }
+
     // http://localhost:8080/temp-hist
     @GetMapping(path = "/temp-hist", produces = TEXT_EVENT_STREAM_VALUE)
     public Flux<FridgeTemperature> streamFridgeTemperatureWithHistory() {
         return temperatureService.getHistoricalPublisher();
     }
 
-    // http://localhost:8080/temp/1
-    @GetMapping(path = "/temp/{fridgeId}", produces = TEXT_EVENT_STREAM_VALUE)
-    public Flux<FridgeTemperature> streamFridgeTemperature(@PathVariable final int fridgeId) {
-        return temperatureService.getTemperaturePublisher().filter(fridgeTemperature -> fridgeTemperature.getId() == fridgeId);
+    // http://localhost:8080/temp-hist-limitRate/5
+    @GetMapping(path = "/temp-hist-limitRate/{requestsNumber}", produces = TEXT_EVENT_STREAM_VALUE)
+    public Flux<FridgeTemperature> streamFridgeTemperatureLimitRate(@PathVariable final int requestsNumber) {
+        return temperatureService.getHistoricalPublisher().limitRate(requestsNumber);
     }
 
     // http://localhost:8080/temp-avg/5
